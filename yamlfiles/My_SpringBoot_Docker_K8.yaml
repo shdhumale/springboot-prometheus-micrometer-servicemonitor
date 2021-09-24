@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-prometheus-micrometer-servicemonitor
+  labels:
+    app: springboot-prometheus-micrometer-servicemonitor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot-prometheus-micrometer-servicemonitor
+  template:
+    metadata:
+      labels:
+        app: springboot-prometheus-micrometer-servicemonitor
+    spec:
+      containers:
+      - name: springboot-prometheus-micrometer-servicemonitor
+        image: shdhumale/springboot-prometheus-micrometer-servicemonitor
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springboot-prometheus-micrometer-servicemonitor-service
+  labels:
+    app: springboot-prometheus-micrometer-servicemonitor 
+spec:
+  selector:
+    app: springboot-prometheus-micrometer-servicemonitor
+  ports:
+    - protocol: TCP
+      name: http-traffic
+      port: 8080
+      targetPort: 8080
+  

@@ -1,0 +1,15 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: springboot-prometheus-micrometer-servicemonitor-service-monitor
+  labels:
+    app: springboot-prometheus-micrometer-servicemonitor
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: springboot-prometheus-micrometer-servicemonitor
+  endpoints:
+  - port: http-traffic
+    path: "/actuator/prometheus"
